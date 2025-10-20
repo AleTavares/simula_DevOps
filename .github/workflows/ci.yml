@@ -21,3 +21,11 @@ jobs:
         run: npm install
       - name: Run tests
         run: npm test
+  integration-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: build Docker image
+        run: docker build -t node-app .
+      - name: Run integration tests
+        run: docker run --rm node-app npm run integration-test
