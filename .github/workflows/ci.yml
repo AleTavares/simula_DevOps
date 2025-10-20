@@ -28,4 +28,4 @@ jobs:
       - name: build Docker image
         run: docker build -t node-app .
       - name: Run integration tests
-        run: docker run --rm node-app npm run integration-test
+        run: docker run --rm node-app npm run test
