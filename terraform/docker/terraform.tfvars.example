@@ -1,0 +1,11 @@
+# Arquivo de exemplo para variáveis do Terraform Docker
+# Copie este arquivo para terraform.tfvars e ajuste se necessário
+
+# Configurações do banco de dados
+postgres_user     = "postgres"
+postgres_password = "admin"
+postgres_db       = "devops_class"
+
+# Portas
+api_port      = 3000
+postgres_port = 5432

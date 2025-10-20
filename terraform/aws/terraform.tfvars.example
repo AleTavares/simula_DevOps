@@ -1,0 +1,19 @@
+# Arquivo de exemplo para variáveis do Terraform AWS
+# Copie este arquivo para terraform.tfvars e preencha com seus valores
+
+# Região AWS
+aws_region = "us-east-1"
+
+# Tipo de instância EC2
+instance_type = "t2.micro"
+
+# Configurações do banco de dados
+postgres_user     = "postgres"
+postgres_password = "sua_senha_segura_aqui"
+postgres_db       = "devops_class"
+
+# Chave SSH pública (conteúdo do arquivo ~/.ssh/id_rsa.pub)
+ssh_public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC... seu_email@example.com"
+
+# URL do repositório GitHub
+github_repo = "https://github.com/Kaitachi92/simula_DevOps.git"
