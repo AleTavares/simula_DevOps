@@ -49,7 +49,7 @@ resource "docker_container" "postgres" {
 # Container da API Node.js
 resource "docker_container" "api" {
   name  = "node-api"
-  image = "node:latest" # Você precisa buildar esta imagem primeiro
+  image = "minha-api-nodejs:latest" # Você precisa buildar esta imagem primeiro
   restart = "unless-stopped"
 
   env = [
