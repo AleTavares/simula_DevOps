@@ -30,3 +30,6 @@ jobs:
 
       - name: Rodar o Lint
         run: npm run lint
+
+      - name: Rodar npm test
+        run:  npm test
