@@ -12,17 +12,16 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
-          with: 
-            node-version: '18'
+        with: 
+          node-version: '18'
 
       - name: Cache Node.js modules
         uses: actions/cache@v3
-          with:
-            path: node_modules
-            key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
-            restore-keys: |
-              ${{ runner.os }}-node-
-
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
 
       - name: Baixar dependencias
         run: npm install
