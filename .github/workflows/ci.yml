@@ -32,6 +32,11 @@ jobs:
         cache: 'npm'
     - run: npm install
     - run: npm run lint
+    - name: Setup database
+      run: |
+        PGPASSWORD=admin psql -h localhost -U postgres -d devops_class -f src/database/schema.sql
+      env:
+        PGPASSWORD: admin
     - run: npm test
       env:
         DB_HOST: localhost
