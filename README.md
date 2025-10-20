@@ -85,20 +85,45 @@ O exercício será considerado um sucesso se:
 2.  Os arquivos Terraform (`.tf`) estiverem corretamente configurados no diretório da opção escolhida.
 3.  Após executar `terraform apply`, a aplicação estiver acessível e funcional no ambiente provisionado (seja via `localhost:3000` no Docker ou pelo IP público da EC2 na AWS).
 
-## 5. Como Iniciar o Projeto (Localmente para Desenvolvimento)
+## 5. Como Usar
 
-Antes de partir para o Terraform, você pode rodar o projeto em sua máquina.
+### Desenvolvimento Local
 
-1.  **Suba um banco de dados PostgreSQL:**
-    ```bash
-    docker run --name devops-db -e POSTGRES_PASSWORD=admin -e POSTGRES_DB=devops_class -p 5432:5432 -d postgres:13
-    ```
-2.  **Instale as dependências:**
-    ```bash
-    npm install
-    ```
-3.  **Execute a aplicação:**
-    ```bash
-    npm start
-    ```
-A API estará disponível em `http://localhost:3000`.
+```bash
+# 1. Subir PostgreSQL
+docker run --name devops-db -e POSTGRES_PASSWORD=admin -e POSTGRES_DB=devops_class -p 5432:5432 -d postgres:13
+
+# 2. Instalar dependências
+npm install
+
+# 3. Iniciar aplicação
+npm start
+```
+
+### Deploy com Terraform (Docker)
+
+```bash
+cd terraform/docker
+terraform init
+terraform apply
+```
+
+### Deploy com Terraform (AWS)
+
+```bash
+cd terraform/aws
+cp terraform.tfvars.example terraform.tfvars
+# Editar terraform.tfvars com suas configurações
+terraform init
+terraform apply
+```
+
+## 6. Estrutura dos Arquivos Criados
+
+```
+.github/workflows/ci.yml    # Pipeline CI/CD
+Dockerfile                   # Containerização
+.eslintrc.json              # Configuração do lint
+terraform/docker/           # IaC para Docker
+terraform/aws/              # IaC para AWS
+```
