@@ -26,8 +26,6 @@ jobs:
           node-version: '18'
       - name: Instalar dependências
         run: npm install
-      - name: Construir projeto
-        run: npm start
       - name: Fazer lint no código
         run: npm run lint
       - name: Executar testes
