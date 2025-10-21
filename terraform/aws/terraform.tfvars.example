@@ -1,0 +1,13 @@
+# Copie este arquivo para terraform.tfvars e preencha os valores
+
+aws_region      = "us-east-1"
+instance_type   = "t2.micro"
+ami_id          = "ami-0c7217cdde317cfec" # Ubuntu 22.04 LTS em us-east-1
+db_instance_class = "db.t3.micro"
+db_name         = "devops_class"
+db_username     = "postgres"
+db_password     = "SuaSenhaSegura123!"
+git_repo_url    = "https://github.com/seu-usuario/seu-fork.git"
+
+# Cole aqui sua chave SSH pública (conteúdo do arquivo ~/.ssh/id_rsa.pub)
+ssh_public_key  = "ssh-rsa AAAA..."
