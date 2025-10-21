@@ -27,7 +27,7 @@ jobs:
       - name: Instalar dependências
         run: npm install
       - name: Construir projeto
-        run: npm run build
+        run: npm start
       - name: Fazer lint no código
         run: npm run lint
       - name: Executar testes
