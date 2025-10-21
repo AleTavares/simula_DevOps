@@ -1,0 +1,21 @@
+# node & package
+node_modules
+npm-debug.log
+yarn.lock
+package-lock.json
+
+# git / terraform / editor
+.git
+.terraform
+.vscode
+
+# OS / user folders (protege contra contextos errados)
+AppData
+Desktop
+Documents
+Downloads
+
+# outros grandes / temporários
+*.log
+*.tmp
+.DS_Store
