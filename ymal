@@ -1,0 +1,64 @@
+name: CI - Verificação, Lint e Testes de Integração
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - mai
+jobs:
+  build_and_test:
+    runs-on: ubuntu-latest
+    
+    services:
+      postgres:
+        image: postgres:13
+        env:
+          POSTGRES_USER: testuser
+          POSTGRES_PASSWORD: testpass
+          POSTGRES_DB: testdb
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      - name: Checkout do Repositório
+        uses: actions/checkout@v3
+
+      - name: Configurar Node.js 18
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          
+      - name: Cache de Dependências
+        id: cache-npm
+        uses: actions/cache@v3
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Instalar Dependências
+        if: steps.cache-npm.outputs.cache-hit != 'true'
+        run: npm install
+      
+      - name: Configurar Variáveis de Ambiente para Teste
+        run: |
+          # O DB_HOST é 'localhost' pois o serviço Postgres está mapeado para o runner
+          echo "DB_HOST=localhost" >> $GITHUB_ENV
+          echo "DB_USER=testuser" >> $GITHUB_ENV
+          echo "DB_PASSWORD=testpass" >> $GITHUB_ENV
+          echo "DB_NAME=testdb" >> $GITHUB_ENV
+          # Porta padrão do Postgres, a API deve se conectar a 5432
+          echo "DB_PORT=5432" >> $GITHUB_ENV
+
+      - name: Rodar Lint
+        run: npm run lint
+      
+      - name: Rodar Testes
+        run: npm test
