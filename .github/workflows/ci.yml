@@ -1,0 +1,47 @@
+name: CI - Node.js Build and Test
+
+# Define os eventos que acionam este workflow
+on:
+  push:
+    branches: [ main ]  # Acionado em push para a branch 'main'
+  pull_request:
+    branches: [ main ]  # Acionado em pull requests que visam a branch 'main'
+
+# Define os jobs (tarefas) a serem executadas
+jobs:
+  build:  # Nome do job (poderia ser 'test', 'ci', etc.)
+    # O ambiente onde o job será executado
+    runs-on: ubuntu-latest
+
+    # Os passos a serem executados
+    steps:
+      # Passo 1: Checkout do Código
+      # Baixa o código do teu repositório para o ambiente de execução
+      - name: Passo 1: Checkout do Código
+        uses: actions/checkout@v3
+      
+      # Passo 2: Configuração do Node.js
+      # Configura o ambiente Node.js na versão 18 e habilita o cache
+      - name: Passo 2: Configuração do Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          # Habilita o cache automático de dependências do npm
+          cache: 'npm' 
+      
+      # Passo 3: Instalar Dependências
+      # Executa a instalação das dependências. O cache acelera este passo.
+      - name: Passo 3: Instalar Dependências
+        run: npm install
+      
+      # Passo 4: Rodar Verificação de Estilo (Lint)
+      # Garante que o código segue as regras de estilo definidas
+      - name: Passo 4: Rodar Lint
+        run: npm run lint
+        # O job falha se o lint falhar
+      
+      # Passo 5: Rodar Testes
+      # Executa os testes unitários/integração.
+      - name: Passo 5: Rodar Testes
+        run: npm test
+        # O job só passa se todos os testes passarem
