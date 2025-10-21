@@ -1,0 +1,45 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:13
+        env:
+          POSTGRES_PASSWORD: admin
+          POSTGRES_DB: devops_class
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
+
+    steps:
+    - uses: actions/checkout@v3
+    - uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+    - run: npm install
+    - run: npm run lint
+    - name: Setup database
+      run: |
+        PGPASSWORD=admin psql -h localhost -U postgres -d devops_class -f src/database/schema.sql
+      env:
+        PGPASSWORD: admin
+    - run: npm test
+      env:
+        DB_HOST: localhost
+        DB_PORT: 5432
+        DB_USER: postgres
+        DB_PASSWORD: admin
+        DB_NAME: devops_class
